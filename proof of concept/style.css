@@ -1,5 +1,8 @@
-body{
+
+ body{
   background-color: #e9f5f4;
+  font-family: 'Poppins', sans-serif;
+  
 }
 .parent {
   height: 100vh;
@@ -8,90 +11,117 @@ body{
    "a a a "
    "b c d"
    "e e e";
- grid-template-columns: minmax(150px 25%) 1fr minmax(150px 25%) ;
+ grid-template-columns: auto 1fr auto ;
  grid-template-rows: auto 1fr auto;
  grid-gap: 0.1em;
 
-}                      
+}                 
 
-header {
-  /*sticky at the top:
-   it is always visible at the top of the page even when the user scrolls down*/
-  height: 85px;
+
+header { 
+  height: 85px; 
   opacity: 0.85;
-  position: fixed;
   position: sticky;
-  top: 2px;
+  top: 0;
+  z-index:1;
   background-color: pink;
   grid-area: a;
+
 }
 
-.left-side { 
+.left_side, .right_side { 
   width: 200px;
+  overflow-y: scroll;
+  position: sticky;
+  top:85px;
+  bottom: 300px;
+}
+
+
+
+.left_side {
+  left:0px;
   background-color: blue;
   grid-area: b;
+  float:left;
+}
+.right_side {
+  right: 0px;
+  background-color: yellow;
+  grid-area: d;
+  float:right;
 }
 
 main {
-  /*The main content fills the rest of the page.*/
   width: auto-fill;
   background-color: coral;
-  grid-column: 2 / 3;
   grid-area: c;
+  overflow:hidden; 
 }
-.right-side {
-  width: 200px;
-  background-color: yellow;
-  grid-area: d;
-}
+
 
 footer {
   height: 300px;
+  width: auto-fill;
   background-color: green;
   grid-area: e;
 }
- .scroller {
+p {
+  font-weight: normal;
+  padding: 0.8em;
+}
+.scroller {
   height: 2000px;
+  scrollbar-width: none;
   overflow-y: scroll;
 }
 main .scroller {
   height: 4000px;
-  overflow-y: scroll;
-
-}
-::-webkit-scrollbar {
-    width: 0px;
-    background: transparent; /* make scrollbar transparent */
 }
 
+.scroller::-webkit-scrollbar {
+  display: none;
+}
 
-@media screen and (min-width: 481px) and (max-width: 768px)
+@media only screen and (max-width: 992px)
 {
   .parent {
-    grid-template-columns: 1fr;
-    grid-template-rows: 0.4fr 0.5fr 1 0.5fr 0.4fr;
+    grid-template-columns: auto auto;
+    grid-auto-rows: auto auto auto auto;
     grid-template-areas:
-      "a"
-      "c"
-      "b"
-      "d"
-      "e";
+      "a a"
+      "b c"
+      "d c"
+      "e e";
   }
+
+   .parent > main {
+    height:auto ;
+  }
+
 }
 
-@media screen and (max-width: 480px)
+@media only screen and (max-width: 600px)
 {
   .parent {
-    grid-template-columns: 1fr;
-    grid-template-rows: 0.4fr 0.5fr 1 0.5fr 0.4fr;
+    height: auto;
+    grid-template-columns: auto auto;
+    grid-auto-rows: auto auto auto auto;
     grid-template-areas:
-      "a"
-      "b"
-      "c"
-      "d"
-      "e";
+      "a a"       
+      "c c"
+      "b d"
+      "e e";
+
   }
-  .left-side .right-side {
+
+  .parent >.left_side, .right_side {
     width: 100%;
   }
+  footer {
+    z-index: 1;
+    min-height: 20px;
+  }
+  .scroller {
+  overflow-y: scroll;
 }
